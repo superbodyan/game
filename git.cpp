@@ -1,3 +1,7 @@
+// ConsoleApplication9.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+//
+
+#include "pch.h"
 #include <stdio.h>
 #include <stdlib.h> 
 #include <iostream> 
@@ -76,42 +80,43 @@ int main()
 
 			switch (input) {
 			case 'D': {
-				x++;
+				
 				p[x + 1][y]--;
 				p[x - 1][y]--;
 				p[x][y + 1]--;
 				p[x][y - 1]--;
 				p[x][y]--;
+				x++;
 				cout << "\n";
 				break;
 			}
 			case 'U': {
-				x--;
 				p[x + 1][y]--;
 				p[x - 1][y]--;
 				p[x][y + 1]--;
 				p[x][y - 1]--;
 				p[x][y]--;
+				x--;
 				cout << "\n";
 				break;
 			}
 			case 'L': {
-				y--;
 				p[x + 1][y]--;
 				p[x - 1][y]--;
 				p[x][y + 1]--;
 				p[x][y - 1]--;
 				p[x][y]--;
+				y--;
 				cout << "\n";
 				break;
 			}
-			case 'R': {
-				y++;
+			case 'R': {	
 				p[x + 1][y]--;
 				p[x - 1][y]--;
 				p[x][y + 1]--;
 				p[x][y - 1]--;
 				p[x][y]--;
+				y++;
 				cout << "\n";
 				break;
 			}
