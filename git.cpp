@@ -3,88 +3,134 @@
 #include <iostream> 
 using namespace std;
 
-void qwerty(int* p, int m, int x, int y,int n)
+
+void qwerty(int** p, int* m, int x, int y, int n)
 {
-  if (x+1 <= n) {
-    if (y <= m[x+1]) {
-      p[x+1][y]--;
-    }
-  }
- 
+	if (x + 1 <= n) {
+		if (y <= m[x + 1]) {
+			p[x + 1][y]--;
+		}
+	}
+
 }
 
-bool check (int** p)
+
+
+
+bool check(int** p, int nn, int* mm)
 {
-  int summ;
-  for (int i=0; i!=n; i++){
-    for (int j=0; j!=m[i]; j++) {
-      summ+=p[i][j];
-    }
-  }
+	int summ = 0;
 
-  if (summ == 0) {
-    std:cout<<"Victory";
-    return true;
-  }
+	for (int i = 0; i != nn; i++) {
+		for (int j = 0; j != mm[i]; j++) {
+			summ += p[i][j];
+		}
+	}
 
-  return false;
+	if (summ == 0) {
+	std:cout << "Victory";
+		return true;
+	}
+
+	return false;
 }
+
+
 
 int main()
 {
-    char input;
-    int n, x, y, summ;
+	char input;
+	int n, x, y, summ;
 
-    cin>>n;
+	cin >> n;
 
-    int** p = (int**)malloc(n*sizeof(int*));
-    int* m = (int*)malloc(n*sizeof(int));
+	int** p = (int**)malloc(n * sizeof(int*));
+	int* m = (int*)malloc(n * sizeof(int));
 
-    for (int i=0; i!=n; i++) {
-    cin>>m[i];
-      p[i] = (int*)malloc(m[i]*sizeof(int));
-      for (int j=0; j!=m[i]; j++) {
-        cin>>p[i][j];
-      }
-    }
+	for (int i = 0; i != n; i++) {
+		cin >> m[i];
+		p[i] = (int*)malloc(m[i] * sizeof(int));
+		for (int j = 0; j != m[i]; j++) {
+			cin >> p[i][j];
+		}
+	}
 
-    cout<<"\n";
-    for (int i=0; i!=n; i++){
-      for (int j=0; j!=m[i]; j++) {
-          cout<<p[i][j]<<" ";
-      }
-      cout<<"\n";
-    }
+	cout << "\n";
+	for (int i = 0; i != n; i++) {
+		for (int j = 0; j != m[i]; j++) {
+			cout << p[i][j] << " ";
+		}
+		cout << "\n";
+	}
 
-    cin>>x>>y;
+	cin >> x >> y;
 
-    if (!check(p) || n==3)
-    while (!check(p)) {
-      cin >> input;
 
-      switch(input) {
-      case 'D': {
-        y++;
-        break;
-      }
-      case 'L': {
-        x--;
-        break;
-      }
-      case 'Q': {
-        goto L;
-      }
-      }
 
-      if (!(qwerty(p,m,x,y)) cout<<"Loose";
-    }
 
-    L:
-    for (int i=0; i!=n; i++) {
-        free(p[i]);
-    }
-    free(p);
-    free(m);
 
-    return 0;
+	
+	if (!check(p,n,m) || n == 3)
+		while (!check(p,n,m)) {
+			cin >> input;
+
+			switch (input) {
+			case 'D': {
+				x++;
+				break;
+			}
+			case 'U': {
+				x--;
+				break;
+			}
+			case 'L': {
+				y--;
+				break;
+			}
+			case 'R': {
+				y++;
+				break;
+			}
+			case 'S': {
+			//	cout << "\n";
+				for (int i = 0; i != n; i++) {
+					for (int j = 0; j != m[i]; j++) {
+						if (p[i][j] > 0) {
+							cout << p[i][j] << " ";
+						}
+					}
+					cout << "\n";
+				}
+				break;
+			}
+			case 'K': {
+				p[x + 1][y]--;
+				p[x - 1][y]--;
+				p[x][y + 1]--;
+				p[x][y - 1]--;
+				cout << "\n";
+			}
+
+			case 'Y': { // for testing
+				cout << x << " " << y; // show position
+				cout << "\n";
+				break;
+			}
+
+			case 'Q': {
+				goto L;
+			}
+			}
+
+			if ((check(p, n, m))) cout << "Loose"; // хуй знает что это
+		}
+	
+L:
+	for (int i = 0; i != n; i++) {
+		free(p[i]);
+	}
+	free(p);
+		free(m);
+
+		return 0;
 }
