@@ -77,18 +77,42 @@ int main()
 			switch (input) {
 			case 'D': {
 				x++;
+				p[x + 1][y]--;
+				p[x - 1][y]--;
+				p[x][y + 1]--;
+				p[x][y - 1]--;
+				p[x][y]--;
+				cout << "\n";
 				break;
 			}
 			case 'U': {
 				x--;
+				p[x + 1][y]--;
+				p[x - 1][y]--;
+				p[x][y + 1]--;
+				p[x][y - 1]--;
+				p[x][y]--;
+				cout << "\n";
 				break;
 			}
 			case 'L': {
 				y--;
+				p[x + 1][y]--;
+				p[x - 1][y]--;
+				p[x][y + 1]--;
+				p[x][y - 1]--;
+				p[x][y]--;
+				cout << "\n";
 				break;
 			}
 			case 'R': {
 				y++;
+				p[x + 1][y]--;
+				p[x - 1][y]--;
+				p[x][y + 1]--;
+				p[x][y - 1]--;
+				p[x][y]--;
+				cout << "\n";
 				break;
 			}
 			case 'S': {
@@ -112,8 +136,8 @@ int main()
 			}
 
 			case 'Y': { // for testing
-				cout << x << " " << y; // show position
-				cout << "\n";
+			//	cout << x << " " << y; // show position
+			//	cout << "\n";
 				break;
 			}
 
@@ -122,7 +146,7 @@ int main()
 			}
 			}
 
-			if ((check(p, n, m))) cout << "Loose"; // хуй знает что это
+			if (!(check(p, n, m))) cout << "Loose"; // хуй знает что это
 		}
 	
 L:
