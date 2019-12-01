@@ -31,12 +31,30 @@ bool check(int** p, int nn, int* mm)
 		}
 	}
 
-	if (summ == 0) {
-	std:cout << "Victory";
-		return true;
-	}
-
 	return false;
+}
+
+int array_sum(int n2, int **p2, int *m2)
+{
+	int sum2 = 0;
+	for (int i = 0; i != n2; i++) {
+		for (int j = 0; j != m2[i]; j++) {
+			if (p2[i][j] > 0) {
+				sum2 = sum2 + p2[i][j];
+			}
+		}
+
+	}
+	return sum2;
+}
+
+void calculate(int x2, int y2, int **p2, int n2)
+{
+	p2[x2 + 1][y2]--;
+	p2[x2 - 1][y2]--;
+	p2[x2][y2 + 1]--;
+	p2[x2][y2 - 1]--;
+	p2[x2][y2]--;
 }
 
 
@@ -45,11 +63,15 @@ int main()
 {
 	char input;
 	int n, x, y, summ;
+	int win = 0;
+
+	summ = 0;
 
 	cin >> n;
 
 	int** p = (int**)malloc(n * sizeof(int*));
 	int* m = (int*)malloc(n * sizeof(int));
+	int* c = (int*)malloc(n * sizeof(int));
 
 	for (int i = 0; i != n; i++) {
 		cin >> m[i];
@@ -63,6 +85,7 @@ int main()
 	for (int i = 0; i != n; i++) {
 		for (int j = 0; j != m[i]; j++) {
 			cout << p[i][j] << " ";
+			c[i] = 0;
 		}
 		cout << "\n";
 	}
@@ -80,51 +103,44 @@ int main()
 
 			switch (input) {
 			case 'D': {
-				
-				p[x + 1][y]--;
-				p[x - 1][y]--;
-				p[x][y + 1]--;
-				p[x][y - 1]--;
-				p[x][y]--;
+
+				calculate(x,y,p,n); 
+				win = array_sum(n, p, m);
+				summ = summ + win;
 				x++;
 				cout << "\n";
 				break;
 			}
 			case 'U': {
-				p[x + 1][y]--;
-				p[x - 1][y]--;
-				p[x][y + 1]--;
-				p[x][y - 1]--;
-				p[x][y]--;
+				calculate(x, y, p, n);
 				x--;
 				cout << "\n";
 				break;
 			}
 			case 'L': {
-				p[x + 1][y]--;
-				p[x - 1][y]--;
-				p[x][y + 1]--;
-				p[x][y - 1]--;
-				p[x][y]--;
+				calculate(x, y, p, n);
 				y--;
 				cout << "\n";
 				break;
 			}
 			case 'R': {	
-				p[x + 1][y]--;
-				p[x - 1][y]--;
-				p[x][y + 1]--;
-				p[x][y - 1]--;
-				p[x][y]--;
+				calculate(x, y, p, n);
 				y++;
 				cout << "\n";
 				break;
 			}
+			case 'O': {
+				
+				cout << summ;
+				summ = 0;
+				cout << "\n";
+				break;
+			}
 			case 'S': {
-			//	cout << "\n";
 				for (int i = 0; i != n; i++) {
 					for (int j = 0; j != m[i]; j++) {
 						if (p[i][j] > 0) {
+							c[i]++;
 							cout << p[i][j] << " ";
 						}
 					}
@@ -140,9 +156,12 @@ int main()
 				cout << "\n";
 			}
 
-			case 'Y': { // for testing
-			//	cout << x << " " << y; // show position
-			//	cout << "\n";
+			case 'P': { // for testing
+				cout << x << " " << y; // show position
+				cout << "\n";
+				
+				
+
 				break;
 			}
 
@@ -151,8 +170,8 @@ int main()
 			}
 			}
 
-			if (!(check(p, n, m))) cout << "Loose"; // хуй знает что это
 		}
+
 	
 L:
 	for (int i = 0; i != n; i++) {
